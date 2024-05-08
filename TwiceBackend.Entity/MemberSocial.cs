@@ -11,5 +11,7 @@ public partial class MemberSocial
 
     public string MemberSocialUrl { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Member Member { get; set; } = null!;
 }

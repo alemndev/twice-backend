@@ -61,7 +61,7 @@ namespace TwiceBackend.BLL.Services
       {
         var FindCreatedGroup = await _groupRepository.Query(g => g.GroupName == model.GroupName);
         
-        if (FindCreatedGroup != null)
+        if (FindCreatedGroup.Count() > 0)
         {
           throw new TaskCanceledException("group exist");
         }

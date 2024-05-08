@@ -17,5 +17,7 @@ public partial class DiscographySong
 
     public string? DiscographySongYoutubeUrl { get; set; }
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Discography Discography { get; set; } = null!;
 }

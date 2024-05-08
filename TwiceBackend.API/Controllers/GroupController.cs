@@ -6,6 +6,7 @@ using TwiceBackend.BLL.Services.Contract;
 using TwiceBackend.Entity;
 using AutoMapper;
 using TwiceBackend.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TwiceBackend.API.Controllers
 {
@@ -86,6 +87,7 @@ namespace TwiceBackend.API.Controllers
       }
     }
 
+    [Authorize(Roles = "admin")]
     [HttpPost]
     [Route("create")]
     public async Task<ActionResult> Group([FromBody] GroupRequestDTO model)

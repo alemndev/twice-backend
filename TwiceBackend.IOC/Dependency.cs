@@ -25,6 +25,7 @@ namespace TwiceBackend.IOC
       services.AddAutoMapper(typeof(AutoMapperProfile));
 
       services.AddScoped<IGroupService, GroupService>();
+      services.AddScoped<IAuthService, AuthService>();
     }
   }
 }

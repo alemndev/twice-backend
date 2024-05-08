@@ -11,5 +11,7 @@ public partial class GroupFanclubGallery
 
     public string GroupFanclubGalleryImageUrl { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual GroupFanclub GroupFanclub { get; set; } = null!;
 }

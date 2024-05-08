@@ -13,5 +13,7 @@ public partial class GroupFanclub
 
     public int GroupId { get; set; }
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Group Group { get; set; } = null!;
 }

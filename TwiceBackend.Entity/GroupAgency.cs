@@ -11,5 +11,7 @@ public partial class GroupAgency
 
     public string GroupAgencyCountry { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Group Group { get; set; } = null!;
 }

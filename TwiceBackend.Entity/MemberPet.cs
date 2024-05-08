@@ -13,5 +13,7 @@ public partial class MemberPet
 
     public string MemberPetBreed { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Member Member { get; set; } = null!;
 }

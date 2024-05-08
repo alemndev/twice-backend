@@ -11,5 +11,7 @@ public partial class GroupGallery
 
     public string GroupGalleryImageUrl { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Group Group { get; set; } = null!;
 }

@@ -11,5 +11,7 @@ public partial class GroupSocial
 
     public string? GroupSocialUrl { get; set; }
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Group Group { get; set; } = null!;
 }

@@ -11,5 +11,7 @@ public partial class DiscographyGallery
 
     public string DiscographyGalleryImageUrl { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Discography Discography { get; set; } = null!;
 }

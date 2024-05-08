@@ -35,6 +35,8 @@ public partial class Member
 
     public int GroupId { get; set; }
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Group Group { get; set; } = null!;
 
     public virtual ICollection<MemberPet> MemberPets { get; set; } = new List<MemberPet>();

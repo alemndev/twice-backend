@@ -11,5 +11,7 @@ public partial class MemberGallery
 
     public string MemberGalleryImageUrl { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Member Member { get; set; } = null!;
 }

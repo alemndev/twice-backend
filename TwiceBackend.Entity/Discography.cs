@@ -23,6 +23,8 @@ public partial class Discography
 
     public int GroupId { get; set; }
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual ICollection<DiscographySong> DiscographySongs { get; set; } = new List<DiscographySong>();
 
     public virtual Group Group { get; set; } = null!;

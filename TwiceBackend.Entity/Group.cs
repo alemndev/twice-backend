@@ -19,6 +19,8 @@ public partial class Group
 
     public string? GroupOrigin { get; set; }
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual ICollection<Discography> Discographies { get; set; } = new List<Discography>();
 
     public virtual ICollection<GroupFanclub> GroupFanclubs { get; set; } = new List<GroupFanclub>();

@@ -63,17 +63,25 @@ public partial class TwicedbContext : DbContext
 
     public virtual DbSet<MemberSocial> MemberSocials { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserRole> UserRoles { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Discography>(entity =>
         {
-            entity.HasKey(e => e.DiscographyId).HasName("PK__Discogra__ED24001C0BFF1448");
+            entity.HasKey(e => e.DiscographyId).HasName("PK__Discogra__ED24001C7C4A8CDE");
 
             entity.ToTable("Discography");
 
             entity.Property(e => e.DiscographyId).HasColumnName("discographyId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.DiscographyCountry)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -107,7 +115,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany(p => p.Discographies)
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Discograp__group__4AB81AF0");
+                .HasConstraintName("FK__Discograp__group__5070F446");
         });
 
         modelBuilder.Entity<DiscographyGallery>(entity =>
@@ -116,6 +124,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("DiscographyGallery");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.DiscographyGalleryDescription)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -129,16 +141,20 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Discography).WithMany()
                 .HasForeignKey(d => d.DiscographyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Discograp__disco__4CA06362");
+                .HasConstraintName("FK__Discograp__disco__534D60F1");
         });
 
         modelBuilder.Entity<DiscographySong>(entity =>
         {
-            entity.HasKey(e => e.DiscographySongId).HasName("PK__Discogra__C4967603D7F697B3");
+            entity.HasKey(e => e.DiscographySongId).HasName("PK__Discogra__C49676032DC40965");
 
             entity.ToTable("DiscographySong");
 
             entity.Property(e => e.DiscographySongId).HasColumnName("discographySongId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.DiscographyId).HasColumnName("discographyId");
             entity.Property(e => e.DiscographySongGenre)
                 .HasMaxLength(50)
@@ -160,7 +176,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Discography).WithMany(p => p.DiscographySongs)
                 .HasForeignKey(d => d.DiscographyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Discograp__disco__4F7CD00D");
+                .HasConstraintName("FK__Discograp__disco__571DF1D5");
         });
 
         modelBuilder.Entity<DiscographySongCredit>(entity =>
@@ -184,18 +200,22 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.DiscographySong).WithMany()
                 .HasForeignKey(d => d.DiscographySongId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Discograp__disco__5165187F");
+                .HasConstraintName("FK__Discograp__disco__59FA5E80");
         });
 
         modelBuilder.Entity<Group>(entity =>
         {
-            entity.HasKey(e => e.GroupId).HasName("PK__Group__88C1034DD3C8196B");
+            entity.HasKey(e => e.GroupId).HasName("PK__Group__88C1034D10C8425E");
 
             entity.ToTable("Group");
 
-            entity.HasIndex(e => e.GroupName, "UQ__Group__9011AC82F4688F86").IsUnique();
+            entity.HasIndex(e => e.GroupName, "UQ__Group__9011AC826E36C796").IsUnique();
 
             entity.Property(e => e.GroupId).HasColumnName("groupId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.GroupChineseName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -228,6 +248,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("GroupAgency");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.GroupAgencyCountry)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -241,7 +265,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany()
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GroupAgen__group__398D8EEE");
+                .HasConstraintName("FK__GroupAgen__group__3A81B327");
         });
 
         modelBuilder.Entity<GroupDebut>(entity =>
@@ -262,18 +286,22 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany()
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GroupDebu__group__3B75D760");
+                .HasConstraintName("FK__GroupDebu__group__3D5E1FD2");
         });
 
         modelBuilder.Entity<GroupFanclub>(entity =>
         {
-            entity.HasKey(e => e.GroupFanclubId).HasName("PK__GroupFan__330725D769C5DA7E");
+            entity.HasKey(e => e.GroupFanclubId).HasName("PK__GroupFan__330725D791507BD4");
 
             entity.ToTable("GroupFanclub");
 
-            entity.HasIndex(e => e.GroupFanclubName, "UQ__GroupFan__8F0FE6CE6B4EE463").IsUnique();
+            entity.HasIndex(e => e.GroupFanclubName, "UQ__GroupFan__8F0FE6CEAFED2AE1").IsUnique();
 
             entity.Property(e => e.GroupFanclubId).HasColumnName("groupFanclubId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.GroupFanclubDescription)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -287,7 +315,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany(p => p.GroupFanclubs)
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GroupFanc__group__44FF419A");
+                .HasConstraintName("FK__GroupFanc__group__48CFD27E");
         });
 
         modelBuilder.Entity<GroupFanclubGallery>(entity =>
@@ -296,6 +324,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("GroupFanclubGallery");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.GroupFanclubGalleryDescription)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -309,7 +341,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.GroupFanclub).WithMany()
                 .HasForeignKey(d => d.GroupFanclubId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GroupFanc__group__46E78A0C");
+                .HasConstraintName("FK__GroupFanc__group__4BAC3F29");
         });
 
         modelBuilder.Entity<GroupGallery>(entity =>
@@ -318,6 +350,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("GroupGallery");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.GroupGalleryDescription)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -331,7 +367,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany()
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GroupGall__group__412EB0B6");
+                .HasConstraintName("FK__GroupGall__group__440B1D61");
         });
 
         modelBuilder.Entity<GroupGenre>(entity =>
@@ -349,7 +385,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany()
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GroupGenr__group__3D5E1FD2");
+                .HasConstraintName("FK__GroupGenr__group__3F466844");
         });
 
         modelBuilder.Entity<GroupSocial>(entity =>
@@ -358,6 +394,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("GroupSocial");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.GroupId).HasColumnName("groupId");
             entity.Property(e => e.GroupSocialName)
                 .HasMaxLength(50)
@@ -371,18 +411,22 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany()
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GroupSoci__group__3F466844");
+                .HasConstraintName("FK__GroupSoci__group__412EB0B6");
         });
 
         modelBuilder.Entity<Member>(entity =>
         {
-            entity.HasKey(e => e.MemberId).HasName("PK__Member__7FD7CF16F124578B");
+            entity.HasKey(e => e.MemberId).HasName("PK__Member__7FD7CF164CE8FE47");
 
             entity.ToTable("Member");
 
-            entity.HasIndex(e => e.MemberName, "UQ__Member__67758EAF037BFD46").IsUnique();
+            entity.HasIndex(e => e.MemberName, "UQ__Member__67758EAF0620CED7").IsUnique();
 
             entity.Property(e => e.MemberId).HasColumnName("memberId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.GroupId).HasColumnName("groupId");
             entity.Property(e => e.MemberAnimal)
                 .HasMaxLength(50)
@@ -438,7 +482,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Group).WithMany(p => p.Members)
                 .HasForeignKey(d => d.GroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Member__groupId__5812160E");
+                .HasConstraintName("FK__Member__groupId__60A75C0F");
         });
 
         modelBuilder.Entity<MemberFavoriteColor>(entity =>
@@ -456,7 +500,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberFav__membe__656C112C");
+                .HasConstraintName("FK__MemberFav__membe__72C60C4A");
         });
 
         modelBuilder.Entity<MemberGallery>(entity =>
@@ -465,6 +509,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("MemberGallery");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.MemberGalleryDescription)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -478,7 +526,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberGal__membe__619B8048");
+                .HasConstraintName("FK__MemberGal__membe__6E01572D");
         });
 
         modelBuilder.Entity<MemberHobbie>(entity =>
@@ -496,7 +544,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberHob__membe__6383C8BA");
+                .HasConstraintName("FK__MemberHob__membe__70DDC3D8");
         });
 
         modelBuilder.Entity<MemberLanguage>(entity =>
@@ -514,7 +562,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberLan__membe__5FB337D6");
+                .HasConstraintName("FK__MemberLan__membe__6C190EBB");
         });
 
         modelBuilder.Entity<MemberNickname>(entity =>
@@ -523,6 +571,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("MemberNickname");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.MemberId).HasColumnName("memberId");
             entity.Property(e => e.MemberNickname1)
                 .HasMaxLength(50)
@@ -532,16 +584,20 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberNic__membe__5DCAEF64");
+                .HasConstraintName("FK__MemberNic__membe__693CA210");
         });
 
         modelBuilder.Entity<MemberPet>(entity =>
         {
-            entity.HasKey(e => e.MemberPetId).HasName("PK__MemberPe__1C345E4692462E52");
+            entity.HasKey(e => e.MemberPetId).HasName("PK__MemberPe__1C345E463BDF6357");
 
             entity.ToTable("MemberPet");
 
             entity.Property(e => e.MemberPetId).HasColumnName("memberPetId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.MemberId).HasColumnName("memberId");
             entity.Property(e => e.MemberPetBreed)
                 .HasMaxLength(50)
@@ -555,7 +611,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany(p => p.MemberPets)
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberPet__membe__6A30C649");
+                .HasConstraintName("FK__MemberPet__membe__778AC167");
         });
 
         modelBuilder.Entity<MemberPetGallery>(entity =>
@@ -564,6 +620,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("MemberPetGallery");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.MemberPetGalleryDescription)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -577,7 +637,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.MemberPet).WithMany()
                 .HasForeignKey(d => d.MemberPetId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberPet__membe__6C190EBB");
+                .HasConstraintName("FK__MemberPet__membe__7A672E12");
         });
 
         modelBuilder.Entity<MemberProfession>(entity =>
@@ -586,6 +646,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("MemberProfession");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.MemberId).HasColumnName("memberId");
             entity.Property(e => e.MemberProfession1)
                 .HasMaxLength(50)
@@ -595,7 +659,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberPro__membe__59FA5E80");
+                .HasConstraintName("FK__MemberPro__membe__6383C8BA");
         });
 
         modelBuilder.Entity<MemberSkill>(entity =>
@@ -613,7 +677,7 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberSki__membe__6754599E");
+                .HasConstraintName("FK__MemberSki__membe__74AE54BC");
         });
 
         modelBuilder.Entity<MemberSocial>(entity =>
@@ -622,6 +686,10 @@ public partial class TwicedbContext : DbContext
                 .HasNoKey()
                 .ToTable("MemberSocial");
 
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
             entity.Property(e => e.MemberId).HasColumnName("memberId");
             entity.Property(e => e.MemberSocialName)
                 .HasMaxLength(50)
@@ -635,7 +703,59 @@ public partial class TwicedbContext : DbContext
             entity.HasOne(d => d.Member).WithMany()
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberSoc__membe__5BE2A6F2");
+                .HasConstraintName("FK__MemberSoc__membe__66603565");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__User__CB9A1CFF9DF73AD0");
+
+            entity.ToTable("User");
+
+            entity.HasIndex(e => e.UserNickname, "UQ__User__FF783C4A326A0C41").IsUnique();
+
+            entity.Property(e => e.UserId).HasColumnName("userId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
+            entity.Property(e => e.UserDisplayName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("userDisplayName");
+            entity.Property(e => e.UserMail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("userMail");
+            entity.Property(e => e.UserNickname)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("userNickname");
+            entity.Property(e => e.UserPassword)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("userPassword");
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity.HasKey(e => e.RolId).HasName("PK__UserRole__54023634859D9C81");
+
+            entity.Property(e => e.RolId).HasColumnName("rolId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
+            entity.Property(e => e.RolName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("rolName");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserRoles)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__UserRoles__userI__02084FDA");
         });
 
         OnModelCreatingPartial(modelBuilder);

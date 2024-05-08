@@ -9,5 +9,7 @@ public partial class MemberProfession
 
     public string MemberProfession1 { get; set; } = null!;
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual Member Member { get; set; } = null!;
 }
