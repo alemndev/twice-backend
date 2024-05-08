@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TwiceBackend.Entity;
+
+using TwiceBackend.DAL.DBContext;
+using TwiceBackend.DAL.Repositories.Contract;
+using TwiceBackend.DAL.Repositories;
+using TwiceBackend.BLL.Services.Contract;
+using TwiceBackend.BLL.Services;
+using TwiceBackend.Utilities;
 
 namespace TwiceBackend.IOC
 {
@@ -18,6 +19,12 @@ namespace TwiceBackend.IOC
       {
         opts.UseSqlServer(config.GetConnectionString("SqlString"));
       });
+
+      services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+      services.AddAutoMapper(typeof(AutoMapperProfile));
+
+      services.AddScoped<IGroupService, GroupService>();
     }
   }
 }

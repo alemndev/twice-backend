@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TwiceBackend.DTO\TwiceBackend.DTO.csproj" />
+    <ProjectReference Include="..\TwiceBackend.Entity\TwiceBackend.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

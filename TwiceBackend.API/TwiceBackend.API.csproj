@@ -11,7 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TwiceBackend.BLL\TwiceBackend.BLL.csproj" />
+    <ProjectReference Include="..\TwiceBackend.DAL\TwiceBackend.DAL.csproj" />
+    <ProjectReference Include="..\TwiceBackend.DTO\TwiceBackend.DTO.csproj" />
     <ProjectReference Include="..\TwiceBackend.IOC\TwiceBackend.IOC.csproj" />
+    <ProjectReference Include="..\TwiceBackend.Utilities\TwiceBackend.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TwiceBackend.BLL\TwiceBackend.BLL.csproj" />
+    <ProjectReference Include="..\TwiceBackend.DAL\TwiceBackend.DAL.csproj" />
     <ProjectReference Include="..\TwiceBackend.Entity\TwiceBackend.Entity.csproj" />
+    <ProjectReference Include="..\TwiceBackend.Utilities\TwiceBackend.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
